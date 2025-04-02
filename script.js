@@ -19,7 +19,7 @@ function getComputerChoice(){
             cpChoose = "Scissors";
             break;
     }
-    alert(`Computer option is : ${cpChoose}.`)
+    console.log(`Computer option is : ${cpChoose}.`)
 }
 function getHumanChoice(){
     let inpNum = prompt("Put a number to choose an option: Rock [1] | Paper [2] | Scissors [3]", 1);
@@ -35,25 +35,25 @@ function getHumanChoice(){
             humanChoose = "Scissors";
             break;
         default:
-            alert("Your number is not 1, 2 or 3 so we assign to you a random option");
+            alert("Your number is not 1, 2 or 3 so we assign rock to you.");
             humanChoose = "Rock";
             break;
     }
-    alert(`Your option is : ${humanChoose}.`)
+    console.log(`Your option is : ${humanChoose}.`)
 }
 
 function playRound() {
-    alert('Lets go!!!')
+    console.log('Lets go!!!')
     getHumanChoice();
     getComputerChoice();
     if (humanChoose === cpChoose){
-        alert('A tie!')
+        console.log('A tie!')
     } else if((humanChoose == "Rock" && cpChoose == "Scissors") || (humanChoose == "Paper" && cpChoose == "Rock") || (humanChoose == "Scissors" && cpChoose == "Paper")) {
         humanScore++;
-        alert(`You Win! your score is: ${humanScore}`);
+        console.log(`You Win! your score is: ${humanScore}`);
     } else if((cpChoose == "Rock" && humanChoose == "Scissors") || (cpChoose == "Paper" && humanChoose == "Rock") || (cpChoose == "Scissors" && humanChoose == "Paper")) {
         cpScore++;
-        alert(`You Lose! computer score is: ${cpScore}`);
+        console.log(`You Lose! computer score is: ${cpScore}`);
     }
   }
 
@@ -63,11 +63,11 @@ function playGame(){
         playRound();
     }
     if(humanScore > cpScore) {
-        alert(`You win with: ${humanScore} points`);
+        console.log(`You win with: ${humanScore} points`);
     } else if(humanScore === cpScore){
-        alert(`A tie with: ${humanScore} points`);
+        console.log(`A tie with: ${humanScore} points`);
     } else {
-        alert(`Computer win with: ${cpScore} points`);
+        console.log(`Computer win with: ${cpScore} points`);
     }
     cpScore = 0;
     humanScore = 0;
