@@ -1,0 +1,26 @@
+body{
+    display: flex;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Roboto', sans-serif;
+    flex-direction: column;
+    justify-content: space-between;  
+}
+.mainDiv {
+    text-align: center;
+}
+.btn {
+    background-color: #3882F6;
+    color: white;
+    font-weight: 900;
+    font-size: 14px;
+    width: 150px;
+    height: 40px;
+    margin: 10px;
+    border-radius: 15px;
+    border: 0px;  
+}
+.btn:hover {
+    background-color: #193158;
+    color: #3882F6;
+}

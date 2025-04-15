@@ -5,6 +5,51 @@ let humanChoose;
 let cpScore = 0;
 let humanScore = 0;
 
+const mainDiv = document.querySelector(".mainDiv");
+const pDesc = document.querySelector("p");
+
+function constructUiGame(){
+    const btnPlay = document.createElement("button");
+    btnPlay.textContent = "Play!";
+    btnPlay.classList.add("btn");
+    btnPlay.classList.add("play");
+    btnPlay.addEventListener("click", function (e) {
+        playGame();
+      });
+    mainDiv.appendChild(btnPlay);
+}
+function playGame(){
+    pDesc.textContent = "Pick one, good luck!";
+    const btnRock = document.createElement("button");
+    btnRock.textContent = "Rock";
+    btnRock.classList.add("btn");
+    btnRock.addEventListener("click", function (e) {
+        humanChoose = "Rock";
+        playRound();
+      });
+    mainDiv.appendChild(btnRock);
+
+    const btnPaper = document.createElement("button");
+    btnPaper.textContent = "Paper";
+    btnPaper.classList.add("btn");
+    btnPaper.addEventListener("click", function (e) {
+        humanChoose = "Paper";
+        playRound();
+      });
+    mainDiv.appendChild(btnPaper);
+
+    const btnSciss = document.createElement("button");
+    btnSciss.textContent = "Scissors";
+    btnSciss.classList.add("btn");
+    btnSciss.addEventListener("click", function (e) {
+        humanChoose = "Scissors";
+        playRound();
+      });
+    mainDiv.appendChild(btnSciss);
+    const btnPlay = document.querySelector(".play");
+    mainDiv.removeChild(btnPlay)
+}
+
 function getComputerChoice(){
     let randNum = Math.floor(Math.random() * (3 - 1 + 1) + 1);
     console.log(randNum);
@@ -21,54 +66,36 @@ function getComputerChoice(){
     }
     console.log(`Computer option is : ${cpChoose}.`)
 }
-function getHumanChoice(){
-    let inpNum = prompt("Put a number to choose an option: Rock [1] | Paper [2] | Scissors [3]", 1);
-    console.log(+inpNum);
-    switch (+inpNum){
-        case 1:
-            humanChoose = "Rock";
-            break;
-        case 2:
-            humanChoose = "Paper";
-            break;
-        case 3:
-            humanChoose = "Scissors";
-            break;
-        default:
-            alert("Your number is not 1, 2 or 3 so we assign rock to you.");
-            humanChoose = "Rock";
-            break;
-    }
-    console.log(`Your option is : ${humanChoose}.`)
-}
 
 function playRound() {
-    console.log('Lets go!!!')
-    getHumanChoice();
     getComputerChoice();
     if (humanChoose === cpChoose){
-        console.log('A tie!')
+        pDesc.innerHTML = `Computer option was: ${cpChoose} <br> A tie!`;
     } else if((humanChoose == "Rock" && cpChoose == "Scissors") || (humanChoose == "Paper" && cpChoose == "Rock") || (humanChoose == "Scissors" && cpChoose == "Paper")) {
         humanScore++;
-        console.log(`You Win! your score is: ${humanScore}`);
+        pDesc.innerHTML = `Computer option was: ${cpChoose} <br> You Win! your score is: ${humanScore}`;
     } else if((cpChoose == "Rock" && humanChoose == "Scissors") || (cpChoose == "Paper" && humanChoose == "Rock") || (cpChoose == "Scissors" && humanChoose == "Paper")) {
         cpScore++;
-        console.log(`You Lose! computer score is: ${cpScore}`);
+        pDesc.innerHTML = `Computer option was: ${cpChoose} <br> You Lose! computer score is: ${cpScore}`;
     }
+    checkGame();
   }
 
-function playGame(){
-    let rounds = +prompt("¿How many rounds do you want?");
-    for (let i = 0; i < rounds; i++) {
-        playRound();
+function checkGame(){
+    if(humanScore >= 5 || cpScore >= 5){
+        if(humanScore > cpScore) {
+            pDesc.textContent = `You win with: ${humanScore} points`;
+        } else if(humanScore === cpScore){
+            pDesc.textContent = `A tie with: ${humanScore} points`;
+        } else {
+            pDesc.textContent = `Computer win with: ${cpScore} points`;
+        }
+        cpScore = 0;
+        humanScore = 0;
+        const buttons = mainDiv.querySelectorAll("button");
+        buttons.forEach(button => button.remove());
+        constructUiGame();
     }
-    if(humanScore > cpScore) {
-        console.log(`You win with: ${humanScore} points`);
-    } else if(humanScore === cpScore){
-        console.log(`A tie with: ${humanScore} points`);
-    } else {
-        console.log(`Computer win with: ${cpScore} points`);
-    }
-    cpScore = 0;
-    humanScore = 0;
-}
+}  
+
+constructUiGame();
